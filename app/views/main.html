@@ -1,0 +1,64 @@
+<div class="header">
+  <ul class="nav nav-pills pull-right">
+  </ul>
+  <h3 class="text-muted">Touchnote</h3>
+</div>
+
+<div class="form-group">
+    <h1>Decide who to send your card to <small>List</small></h1>
+    <form >
+        <div class="form-group">
+            <label for="firstname">Firstname</label>
+            <input type="text" ng-model= "contact.firstname" class="form-control" id="firstname" placeholder="Firstname">
+        </div>
+        <div class="form-group">
+            <label for="lastname">Lastname</label>
+            <input type="text" ng-model= "contact.lastname" class="form-control" id="lastname" placeholder="Lastname">
+        </div>
+        <div class="form-group">
+            <label for="postcode">Postcode</label>
+            <input type="text" ng-model= "contact.postcode" class="form-control" id="postcode" placeholder="Postcode">
+        </div>
+
+        <button type="submit" ng-show = "!editMode" ng-click="addAddress()" class="btn btn-primary">Enter new address</button>
+        <button type="submit" ng-show = "editMode" ng-click="editAddress()" class="btn btn-primary">Edit address</button>
+    </form>
+
+    <br>
+    <div>
+
+        <button class="btn btn-sm btn-default" ng-click="filterLetters = 'ALL'">All</button>
+        <button class="btn btn-sm btn-default" ng-click="filterLetters = 'AE'">A-E</button>
+        <button class="btn btn-sm btn-default" ng-click="filterLetters = 'FK'">F-K</button>
+        <button class="btn btn-sm btn-default" ng-click="filterLetters = 'LP'">L-P</button>
+        <button class="btn btn-sm btn-default" ng-click="filterLetters = 'QV'">Q-V</button>
+        <button class="btn btn-sm btn-default" ng-click="filterLetters = 'WZ'">W-Z</button>
+
+    </div>
+</div>
+
+<ul class="list-group media-list">
+    <li class="list-group-item col-xs-6" ng-repeat="address in addresses | startsWith:filterLetters track by $index">
+
+        <div class="media">
+            <div class="media-left pull-left">
+                <img class="media-object img-responsive" src="http://assets.bizjournals.com/lib/img/newsle-empty-icon.png" style="width:50px; height:50px;" >
+            </div>
+            <div class="media-body">
+                <div class="media">
+                    <div class="media-body">
+                        <h5 class="media-heading">{{ address.firstname }} {{ address.lastname }} </h5>
+                        <p>{{ address.postcode }}</p>
+                    </div>
+                    <div class="media-right pull-right">
+                       <!-- <button ng-show="request.status === 'under_offer'" class="btn btn-sm btn-default" disabled>Pending</button>-->
+                        <button class="btn btn-sm btn-default" ng-click="populateEditAddress(address)">Edit</button>
+                        <button class="btn btn-sm btn-default" ng-click="deleteAddress(address)">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </li>
+</ul>
+
